@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.webview"
+    android:versionCode="1"
+    android:versionName="2.0">
+    <uses-sdk android:minSdkVersion="8"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application android:label="Diolinux 2.0" android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true">
+        <activity android:name="com.fullscreen.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:label="Diolinux">
+
+        </activity>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name="com.fullscreen.SplashScreenActivity"
+            android:label="Diolinux"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>
