@@ -2,6 +2,7 @@ package com.fullscreen;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
     private View mCustomView;
     private myWebChromeClient mWebChromeClient;
     private myWebViewClient mWebViewClient;
+    private String url = "http://www.diolinux.com.br";
 
     /**
      * Called when the activity is first created.
@@ -48,7 +50,7 @@ public class MainActivity extends Activity {
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
-        webView.loadUrl("http://www.diolinux.com.br");
+        webView.loadUrl(url);
 
         if (savedInstanceState == null) {
             webView.setWebViewClient(new WebViewClient() {
@@ -59,42 +61,42 @@ public class MainActivity extends Activity {
                 }
             });
         }
-            webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new WebViewClient() {
 
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-                    ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
-                    pb.setVisibility(View.VISIBLE);
-
-
-                }
-
-                public void onPageFinished(WebView view, String url) {
-
-                    ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
-                    pb.setVisibility(View.INVISIBLE);
-                    view.setVisibility(View.VISIBLE);
-
-                }
+                ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
+                pb.setVisibility(View.VISIBLE);
 
 
-            });
+            }
+
+            public void onPageFinished(WebView view, String url) {
+
+                ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
+                pb.setVisibility(View.INVISIBLE);
+                view.setVisibility(View.VISIBLE);
+
+            }
+
+
+        });
 
 
     }
+
     @Override
-    protected void onSaveInstanceState(Bundle outState )
-    {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         webView.saveState(outState);
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
-    {
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         webView.restoreState(savedInstanceState);
     }
+
     public boolean inCustomView() {
         return (mCustomView != null);
     }
@@ -206,9 +208,22 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        MenuItem m1 = menu.add(0, 0, 0, "+");
-        m1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItem m8 = menu.add(0, 0, 0, "Home");
+        m8.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m2 = menu.add(0, 1, 0, "Anuncie");
+        m2.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m3 = menu.add(0, 2, 0, "Ubuntu");
+        m3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m4 = menu.add(0, 3, 0, "Android");
+        m4.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m5 = menu.add(0, 4, 0, "Contato");
+        m5.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m6 = menu.add(0, 5, 0, "DioCast");
+        m6.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m7 = menu.add(0, 6, 0, "DioStore");
+        m7.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem m1 = menu.add(0, 7, 0, "Sobre");
+        m1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         return true;
     }
@@ -220,10 +235,10 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == 0) {
+        if (id == 7) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Diolinux Webapp");
-            builder.setMessage("Version 1.2.0 \n\n" +
+            builder.setMessage("Version 1.2.2 \n\n" +
                     "Developer: Renan Cunha\n" +
                     "Designer: Dionatan Simioni\nContato sobre o app:\nrenan.cunha33@gmail.com");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -235,6 +250,31 @@ public class MainActivity extends Activity {
 
             // final Toast toast =  Toast.makeText(this, "Diolinux Webapp 1.0.0.9 \nDesigned by Renan Cunha\nrenan.cunnha33@gmail.com ", Toast.LENGTH_LONG);
             // toast.show();
+        } else {
+            switch (id) {
+                case 0:
+                    url = "http://www.diolinux.com.br";
+                    break;
+                case 1:
+                    url = "https://docs.google.com/presentation/d/1mkVqs3HBvM_kY-n3hLbLFZeK0p0YmIm3aMXYaTf7jDo/pub?start=false&loop=false&delayms=3000&slide=id.p";
+                    break;
+                case 2:
+                    url = "http://www.diolinux.com.br/search/label/Ubuntu";
+                    break;
+                case 3:
+                    url = "http://www.diolinux.com.br/search/label/Android";
+                    break;
+                case 4:
+                    url = "http://www.diolinux.com.br/p/contato.html";
+                    break;
+                case 5:
+                    url = "http://www.diolinux.com.br/search/label/DioCast";
+                    break;
+                case 6:
+                    url = "http://www.diostore.com.br";
+                    break;
+            }
+            webView.loadUrl(url);
         }
         /*noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
