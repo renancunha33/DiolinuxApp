@@ -30,9 +30,6 @@ public class MainActivity extends Activity {
     private myWebViewClient mWebViewClient;
     private String url = "http://www.diolinux.com.br";
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +65,6 @@ public class MainActivity extends Activity {
                 ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
                 pb.setVisibility(View.VISIBLE);
 
-
             }
 
             public void onPageFinished(WebView view, String url) {
@@ -78,10 +74,7 @@ public class MainActivity extends Activity {
                 view.setVisibility(View.VISIBLE);
 
             }
-
-
         });
-
 
     }
 
@@ -245,7 +238,6 @@ public class MainActivity extends Activity {
                 public void onClick(DialogInterface dialog, int id) {
                 }
             });
-
             builder.show();
 
             // final Toast toast =  Toast.makeText(this, "Diolinux Webapp 1.0.0.9 \nDesigned by Renan Cunha\nrenan.cunnha33@gmail.com ", Toast.LENGTH_LONG);
