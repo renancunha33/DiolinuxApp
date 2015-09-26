@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.KeyEvent;
@@ -18,6 +16,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
+import android.widget.Toast;
 
 import com.example.webview.R;
 
@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
     private myWebChromeClient mWebChromeClient;
     private myWebViewClient mWebViewClient;
     private String url = "http://www.diolinux.com.br";
+    private ShareActionProvider mShareActionProvider;
+    private Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
         webView = (WebView) findViewById(R.id.webView);
-
         mWebViewClient = new myWebViewClient();
         webView.setWebViewClient(mWebViewClient);
-
         mWebChromeClient = new myWebChromeClient();
         webView.setWebChromeClient(mWebChromeClient);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -49,6 +49,16 @@ public class MainActivity extends Activity {
         webView.getSettings().setSaveFormData(true);
         webView.loadUrl(url);
 
+        webView.setOnLongClickListener(
+                new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        final Toast toast = Toast.makeText(view.getContext(), "Compartilhe o link com as opções do menu", Toast.LENGTH_LONG);
+                        toast.show();
+                        return false;
+                    }
+
+                });
         if (savedInstanceState == null) {
             webView.setWebViewClient(new WebViewClient() {
                 @Override
@@ -59,23 +69,22 @@ public class MainActivity extends Activity {
             });
         }
         webView.setWebViewClient(new WebViewClient() {
-
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
                 ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
                 pb.setVisibility(View.VISIBLE);
 
             }
 
             public void onPageFinished(WebView view, String url) {
-
                 ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
                 pb.setVisibility(View.INVISIBLE);
                 view.setVisibility(View.VISIBLE);
-
+                if (webView.getUrl() != null) {
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+                    mShareActionProvider.setShareIntent(shareIntent);
+                }
             }
         });
-
     }
 
     @Override
@@ -200,7 +209,8 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
         MenuItem m8 = menu.add(0, 0, 0, "Home");
         m8.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         MenuItem m2 = menu.add(0, 1, 0, "Anuncie");
@@ -218,6 +228,11 @@ public class MainActivity extends Activity {
         MenuItem m1 = menu.add(0, 7, 0, "Sobre");
         m1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+
         return true;
     }
 
@@ -231,7 +246,7 @@ public class MainActivity extends Activity {
         if (id == 7) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Diolinux Webapp");
-            builder.setMessage("Version 1.2.2 \n\n" +
+            builder.setMessage("Version 1.2.5 \n\n" +
                     "Developer: Renan Cunha\n" +
                     "Designer: Dionatan Simioni\nContato sobre o app:\nrenan.cunha33@gmail.com");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -254,7 +269,7 @@ public class MainActivity extends Activity {
                     url = "http://www.diolinux.com.br/search/label/Ubuntu";
                     break;
                 case 3:
-                    url = "http://www.diolinux.com.br/search/label/Android";
+                    url = "http://www.diolinux.com.br/search/label/android";
                     break;
                 case 4:
                     url = "http://www.diolinux.com.br/p/contato.html";
@@ -265,8 +280,12 @@ public class MainActivity extends Activity {
                 case 6:
                     url = "http://www.diostore.com.br";
                     break;
+
             }
             webView.loadUrl(url);
+        }
+        if (id == R.id.menu_item_share) {
+
         }
         /*noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -275,4 +294,6 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
+

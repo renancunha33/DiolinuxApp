@@ -2,5 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
+    <item
+        android:id="@+id/menu_item_share"
+        android:showAsAction="ifRoom"
+        android:title="Share"
+        android:actionProviderClass=
+            "android.widget.ShareActionProvider" />
 
 </menu>
