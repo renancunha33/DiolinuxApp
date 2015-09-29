@@ -10,6 +10,8 @@ https://www.dropbox.com/s/tg7r2c1uqd99e65/Diolinux_2.1.2.5_1.apk?dl=0
 
 It still have no license, but it will be resolved.
 
+Licence GPLv3
+
 Requiriments:
 Android 4.1 or +
 5 MB free on disk
