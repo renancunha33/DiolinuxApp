@@ -1,4 +1,4 @@
-package com.fullscreen;
+package com.fullscreen.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

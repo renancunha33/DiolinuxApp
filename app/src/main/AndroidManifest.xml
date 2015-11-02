@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_dio"
         android:label="Diolinux">
         <activity
-            android:name="com.fullscreen.SplashScreenActivity"
+            android:name="com.fullscreen.ui.SplashScreenActivity"
             android:configChanges="orientation|screenSize"
             android:label="Diolinux"
             android:theme="@style/AppTheme">
@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name="com.fullscreen.MainActivity"
+            android:name="com.fullscreen.ui.MainActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:label="Diolinux" />
