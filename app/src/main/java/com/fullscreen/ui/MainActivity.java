@@ -2,8 +2,6 @@ package com.fullscreen.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -11,76 +9,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.webview.R;
+import com.fullscreen.helpers.ShareContentHelper;
 import com.fullscreen.utils.Constants;
 import com.fullscreen.utils.DIOWebChromeClient;
+import com.fullscreen.webviews.DIOWebViewClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnLongClickListener {
     private WebView webView;
     private DIOWebChromeClient dioWebChromeClient;
-    private Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FrameLayout customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
+        setupWebView(savedInstanceState, customViewContainer, progressBar);
+    }
 
-        webView = (WebView) findViewById(R.id.webView);
-        DIOWebViewClient mWebViewClient = new DIOWebViewClient();
-        webView.setWebViewClient(mWebViewClient);
-
+    private void setupWebView(Bundle savedInstanceState, FrameLayout customViewContainer, ProgressBar progressBar) {
         dioWebChromeClient = new DIOWebChromeClient(this, webView, customViewContainer);
+        webView = (WebView) findViewById(R.id.webView);
+        webView.setWebViewClient(new DIOWebViewClient(savedInstanceState, progressBar, webView));
         webView.setWebChromeClient(dioWebChromeClient);
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
-
         webView.loadUrl(Constants.URL_DIOLINUX_MAIN_PAGE);
-
-        webView.setOnLongClickListener(
-                new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        final Toast toast = Toast.makeText(view.getContext(), "Compartilhe o link com as opções do menu", Toast.LENGTH_LONG);
-                        toast.show();
-                        return false;
-                    }
-
-                });
-
-        if (savedInstanceState == null) {
-            webView.setWebViewClient(new WebViewClient() {
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    view.loadUrl(url);
-                    return false;
-                }
-            });
-        }
-        webView.setWebViewClient(new WebViewClient() {
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
-                pb.setVisibility(View.VISIBLE);
-
-            }
-
-            public void onPageFinished(WebView view, String url) {
-                ProgressBar pb = (ProgressBar) findViewById(R.id.progress);
-                pb.setVisibility(View.INVISIBLE);
-                view.setVisibility(View.VISIBLE);
-                if (webView.getUrl() != null)
-                    shareCurrentPage();
-            }
-        });
+        webView.setOnLongClickListener(this);
     }
 
     @Override
@@ -136,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                shareCurrentPage();
+                ShareContentHelper.share(this, webView.getUrl());
                 return true;
             case R.id.action_home:
                 webView.loadUrl(Constants.URL_DIOLINUX_MAIN_PAGE);
@@ -181,18 +144,10 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void shareCurrentPage() {
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
-        shareIntent.setType("text/plain");
-        startActivity(shareIntent);
-    }
-
-    private class DIOWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return super.shouldOverrideUrlLoading(view, url);
-        }
+    @Override
+    public boolean onLongClick(View view) {
+        Toast.makeText(view.getContext(), R.string.activity_main_share_info, Toast.LENGTH_LONG).show();
+        return false;
     }
 
 }
