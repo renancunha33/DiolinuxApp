@@ -4,22 +4,25 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.webview.R;
 import com.fullscreen.utils.Constants;
-import com.fullscreen.utils.DIOWebChromeClient;
 import com.fullscreen.utils.DeviceProvider;
+import com.fullscreen.webviews.DIOWebChromeClient;
 import com.fullscreen.webviews.DIOWebViewClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener {
+
     private WebView webView;
     private DIOWebChromeClient dioWebChromeClient;
 
@@ -27,23 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FrameLayout customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
-        setupWebView(savedInstanceState, customViewContainer, progressBar);
-    }
-
-    private void setupWebView(Bundle savedInstanceState, FrameLayout customViewContainer, ProgressBar progressBar) {
-        dioWebChromeClient = new DIOWebChromeClient(this, webView, customViewContainer);
-        webView = (WebView) findViewById(R.id.webView);
-        webView.setWebViewClient(new DIOWebViewClient(savedInstanceState, progressBar, webView));
-        webView.setWebChromeClient(dioWebChromeClient);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.getSettings().setAppCacheEnabled(true);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setSaveFormData(true);
-        webView.loadUrl(Constants.URL_DIOLINUX_MAIN_PAGE);
-        webView.setOnLongClickListener(this);
+        setupToolbar();
+        FrameLayout frameLayoutContainer = (FrameLayout) findViewById(R.id.framelayout_container);
+        ViewGroup viewLoading = (ViewGroup) findViewById(R.id.linearlayout_view_loading_container);
+        setupWebView(savedInstanceState, frameLayoutContainer, viewLoading);
     }
 
     @Override
@@ -128,6 +118,26 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public  void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ((TextView) toolbar.findViewById(R.id.textview_toolbar_title)).setText(R.string.app_name);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupWebView(Bundle savedInstanceState, FrameLayout customViewContainer, ViewGroup viewLoading) {
+        dioWebChromeClient = new DIOWebChromeClient(this, webView, customViewContainer);
+        webView = (WebView) findViewById(R.id.webView_content);
+        webView.setWebViewClient(new DIOWebViewClient(savedInstanceState, viewLoading));
+        webView.setWebChromeClient(dioWebChromeClient);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setSaveFormData(true);
+        webView.loadUrl(Constants.URL_DIOLINUX_MAIN_PAGE);
+        webView.setOnLongClickListener(this);
     }
 
     public void shareCurrentPage() {

@@ -3,9 +3,9 @@ package com.fullscreen.webviews;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 /**
  * Created by jackson on 02/11/15.
@@ -13,13 +13,12 @@ import android.widget.ProgressBar;
 public class DIOWebViewClient extends WebViewClient {
 
     private final Bundle savedInstanceState;
-    private final ProgressBar progressBar;
-    private final WebView webView;
+    private final ViewGroup viewLoading;
+    private boolean isViewLoadingNotStarted = true;
 
-    public DIOWebViewClient(Bundle savedInstanceState, ProgressBar progressBar, WebView webView) {
+    public DIOWebViewClient(Bundle savedInstanceState, ViewGroup viewLoading) {
         this.savedInstanceState = savedInstanceState;
-        this.progressBar = progressBar;
-        this.webView = webView;
+        this.viewLoading = viewLoading;
     }
 
     @Override
@@ -31,14 +30,20 @@ public class DIOWebViewClient extends WebViewClient {
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        progressBar.setVisibility(View.VISIBLE);
         super.onPageStarted(view, url, favicon);
+        if (isViewLoadingNotStarted) {
+            viewLoading.setVisibility(View.VISIBLE);
+            isViewLoadingNotStarted = false;
+        }
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        progressBar.setVisibility(View.INVISIBLE);
+        if (!isViewLoadingNotStarted) {
+            viewLoading.setVisibility(View.INVISIBLE);
+            isViewLoadingNotStarted = true;
+        }
         view.setVisibility(View.VISIBLE);
     }
 }

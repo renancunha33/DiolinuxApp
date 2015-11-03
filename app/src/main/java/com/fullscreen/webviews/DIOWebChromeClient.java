@@ -1,8 +1,9 @@
-package com.fullscreen.utils;
+package com.fullscreen.webviews;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -17,7 +18,7 @@ public class DIOWebChromeClient extends WebChromeClient {
     private final WebView webView;
     private final FrameLayout frameLayoutContainer;
     private final Context context;
-    private View viewVideoProgress;
+    private ViewGroup viewLoading;
     private View viewCustom;
     private CustomViewCallback customViewCallback;
 
@@ -42,11 +43,12 @@ public class DIOWebChromeClient extends WebChromeClient {
 
     @Override
     public View getVideoLoadingProgressView() {
-        if (viewVideoProgress == null) {
+        if (viewLoading == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            viewVideoProgress = inflater.inflate(R.layout.video_progress, null);
+            viewLoading = (ViewGroup) inflater.inflate(R.layout.view_loading, null);
+            viewLoading.findViewById(R.id.textview_loading_description).setVisibility(View.VISIBLE);
         }
-        return viewVideoProgress;
+        return viewLoading;
     }
 
     @Override
