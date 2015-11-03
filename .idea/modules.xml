@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fullscreen.iml" filepath="$PROJECT_DIR$/fullscreen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diolinux_webapp2.iml" filepath="$PROJECT_DIR$/diolinux_webapp2.iml" />
     </modules>
   </component>
 </project>
