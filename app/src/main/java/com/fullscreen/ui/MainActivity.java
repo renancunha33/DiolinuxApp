@@ -2,6 +2,7 @@ package com.fullscreen.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -14,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.webview.R;
-import com.fullscreen.helpers.ShareContentHelper;
 import com.fullscreen.utils.Constants;
 import com.fullscreen.utils.DIOWebChromeClient;
 import com.fullscreen.webviews.DIOWebViewClient;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                ShareContentHelper.share(this, webView.getUrl());
+                shareCurrentPage();
                 return true;
             case R.id.action_home:
                 webView.loadUrl(Constants.URL_DIOLINUX_MAIN_PAGE);
@@ -128,6 +128,14 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void shareCurrentPage() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+        intent.setType("text/plain");
+        startActivity(intent);
     }
 
     //TODO Refatorar isso

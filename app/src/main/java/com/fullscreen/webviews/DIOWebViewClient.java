@@ -7,8 +7,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.fullscreen.helpers.ShareContentHelper;
-
 /**
  * Created by jackson on 02/11/15.
  */
@@ -42,7 +40,5 @@ public class DIOWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
         progressBar.setVisibility(View.INVISIBLE);
         view.setVisibility(View.VISIBLE);
-        if (webView.getUrl() != null)
-            ShareContentHelper.share(view.getContext(), webView.getUrl());
     }
 }
