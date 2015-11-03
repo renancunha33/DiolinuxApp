@@ -13,4 +13,7 @@
     <string name="action_android">Android</string>
 
     <string name="activity_main_share_info">Compartilhe o link com as opções do menu</string>
+    <string name="activity_main_manteiners">"%s\n\nDeveloper: Renan Cunha\nDeveloper: Jackson Miras\n"Designer: Dionatan Simioni\nContato sobre o app:\n\nrenan.cunha33@gmail.com\njackmiras@gmail.com"</string>
+
+    <string name="global_ok">Ok</string>
 </resources>

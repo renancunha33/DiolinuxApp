@@ -1,7 +1,6 @@
 package com.fullscreen.ui;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import com.example.webview.R;
 import com.fullscreen.utils.Constants;
 import com.fullscreen.utils.DIOWebChromeClient;
+import com.fullscreen.utils.DeviceProvider;
 import com.fullscreen.webviews.DIOWebViewClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener {
@@ -138,17 +138,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         startActivity(intent);
     }
 
-    //TODO Refatorar isso
     private void showAppInfo() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.app_name);
-        builder.setMessage("Version 1.2.5 \n\n" +
-                "Developer: Renan Cunha\n" +
-                "Designer: Dionatan Simioni\nContato sobre o app:\nrenan.cunha33@gmail.com");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
+        builder.setMessage(getString(R.string.activity_main_manteiners, DeviceProvider.getAppVersion(this)));
+        builder.setPositiveButton(R.string.global_ok, null);
         builder.show();
     }
 
