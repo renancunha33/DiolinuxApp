@@ -3,6 +3,7 @@ package com.fullscreen.ui;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -120,10 +121,13 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         }
     }
 
-    public  void setupToolbar() {
+    public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ((TextView) toolbar.findViewById(R.id.textview_toolbar_title)).setText(R.string.app_name);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setTitle("");
     }
 
     private void setupWebView(Bundle savedInstanceState, FrameLayout customViewContainer, ViewGroup viewLoading) {
