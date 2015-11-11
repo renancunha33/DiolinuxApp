@@ -6,7 +6,7 @@ This app is a webapp for the site diolinux.com.br, He talks about free-softwares
 https://github.com/renancunha33/diolinux_webapp2
 <br/>
 Link to APK:<br/>
-https://www.dropbox.com/s/tg7r2c1uqd99e65/Diolinux_2.1.2.5_1.apk?dl=0</i>
+https://www.dropbox.com/s/jb8xpqa00jy56e2/Diolinux.apk?dl=0</i>
 
 Licence GPLv3 (see licence on source above)
 
@@ -18,3 +18,5 @@ Android 4.1 or +
 <i>
 https://github.com/renancunha33<br />
 http://pastebin.com/u/renancunha33<br /></i>
+
+Com participações de Dionatan Simioni e Jack Miras.
