@@ -1,4 +1,4 @@
-package com.fullscreen.ui;
+package com.diolinux.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.webview.R;
-import com.fullscreen.utils.Constants;
+import com.diolinux.utils.Constants;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

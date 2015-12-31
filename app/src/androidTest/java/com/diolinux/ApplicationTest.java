@@ -1,4 +1,4 @@
-package com.fullscreen;
+package com.diolinux;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

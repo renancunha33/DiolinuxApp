@@ -1,4 +1,4 @@
-package com.fullscreen.utils;
+package com.diolinux.utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

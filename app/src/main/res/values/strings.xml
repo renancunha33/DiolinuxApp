@@ -14,7 +14,7 @@
 
     <string name="activity_main_share_info">Compartilhe o link com as opções do menu</string>
     <string name="activity_main_manteiners">"%s\n\nDeveloper: Renan Cunha\nDeveloper: Jackson Miras\n"Designer: Dionatan Simioni\nContato sobre o app:\n\nrenan.cunha33@gmail.com\njackmiras@gmail.com"</string>
-
+    <string name="banner_ad_unit_id">ca-app-pub-7961603748883633/9667662303</string>
     <string name="global_ok">Ok</string>
     <string name="view_loading_description">Carregando...</string>
 </resources>

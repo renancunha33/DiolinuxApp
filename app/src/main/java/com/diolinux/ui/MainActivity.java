@@ -1,4 +1,4 @@
-package com.fullscreen.ui;
+package com.diolinux.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,14 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.RemoteViewsService;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.webview.R;
-import com.fullscreen.utils.Constants;
-import com.fullscreen.utils.DeviceProvider;
-import com.fullscreen.webviews.DIOWebChromeClient;
-import com.fullscreen.webviews.DIOWebViewClient;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.diolinux.utils.Constants;
+import com.diolinux.utils.DeviceProvider;
+import com.diolinux.webviews.DIOWebChromeClient;
+import com.diolinux.webviews.DIOWebViewClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener {
 
@@ -31,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         setupToolbar();
         FrameLayout frameLayoutContainer = (FrameLayout) findViewById(R.id.framelayout_container);
         ViewGroup viewLoading = (ViewGroup) findViewById(R.id.linearlayout_view_loading_container);

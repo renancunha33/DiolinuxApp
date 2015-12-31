@@ -1,4 +1,4 @@
-package com.fullscreen.utils;
+package com.diolinux.utils;
 
 /**
  * Created by jackson on 02/11/15.

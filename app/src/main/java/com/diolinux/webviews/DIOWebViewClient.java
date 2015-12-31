@@ -1,4 +1,4 @@
-package com.fullscreen.webviews;
+package com.diolinux.webviews;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
